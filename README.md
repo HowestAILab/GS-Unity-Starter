@@ -91,3 +91,22 @@ Unity.exe -batchmode -buildTarget Android -projectPath . -executeMethod StarterB
   omgedraaid; anders rolt een bal er dwars door.
 - Meerdere splats in één scène? Voeg een **Gaussians Group**-component toe, anders sorteren
   ze los van elkaar.
+
+## Related repositories
+
+Part of the Howest AI Lab gaussian splatting toolkit. Each piece runs on its own; together
+they take a photo, a video or a spoken prompt to a splat on a phone, in Unity or on a
+Vision Pro.
+
+| Repository | Role |
+|---|---|
+| [gaussian-splat-capture-webapp](https://github.com/HowestAILab/gaussian-splat-capture-webapp) | Phone web app + API: photo, video or text prompt in, splat out, retrievable by code |
+| [comfyui-3dgen-bridge](https://github.com/HowestAILab/comfyui-3dgen-bridge) | 3D-generation job API in front of ComfyUI (Z-Image → TripoSplat), plus a mock for testing |
+| [gaussian-splat-recon-worker](https://github.com/HowestAILab/gaussian-splat-recon-worker) | Video → COLMAP → gsplat training → splat, as a job API on a GPU |
+| [prompt-translator-nl-fr-en](https://github.com/HowestAILab/prompt-translator-nl-fr-en) | Sidecar translating Dutch/French prompts to English (OPUS-MT, CPU) |
+| [gaussian-splat-prompt-visionos](https://github.com/HowestAILab/gaussian-splat-prompt-visionos) | Vision Pro app: speak a prompt, the splat appears in the room |
+| [GS-Unity-Starter](https://github.com/HowestAILab/GS-Unity-Starter) | Unity 6 starter: a splat with a mesh collider, Quest build |
+
+Locally they are expected side by side (`splat-capture`, `mock-3dgen-api`,
+`GS-GuestLecture/recon-worker`, `prompt-translator`, `promptsplat-visionos`): the
+capture app's integration tests start the bridge and the worker from those paths.
