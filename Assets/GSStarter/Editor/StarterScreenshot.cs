@@ -49,17 +49,28 @@ public static class StarterScreenshot
         // Twee ballen: één boven de splat, één boven de lege tafelrand (controle).
         var onSplat = DropBall(new Vector3(b.center.x, b.max.y + 0.5f, b.center.z));
         var onTable = DropBall(new Vector3(0.38f, 1.5f, 1.05f));
+        // Physics.simulationMode is a project setting (DynamicsManager.asset): switch it only
+        // for this test, and always back. Left on Script, Unity no longer simulates in Play
+        // mode and every ball hangs still in the air.
+        var mode = Physics.simulationMode;
         Physics.simulationMode = SimulationMode.Script;
-        Physics.SyncTransforms();
         float hitHeight = float.NaN;
-        var startXZ = new Vector2(onSplat.position.x, onSplat.position.z);
-        for (int i = 0; i < 200; i++)
+        try
         {
-            Physics.Simulate(0.01f);
-            // Valt de bal vrij, dan blijft hij recht boven zijn startpunt. Wijkt hij opzij af,
-            // dan heeft hij iets geraakt: dat is de collider van de splat.
-            var xz = new Vector2(onSplat.position.x, onSplat.position.z);
-            if (float.IsNaN(hitHeight) && Vector2.Distance(xz, startXZ) > 0.01f) hitHeight = onSplat.position.y;
+            Physics.SyncTransforms();
+            var startXZ = new Vector2(onSplat.position.x, onSplat.position.z);
+            for (int i = 0; i < 200; i++)
+            {
+                Physics.Simulate(0.01f);
+                // Valt de bal vrij, dan blijft hij recht boven zijn startpunt. Wijkt hij opzij af,
+                // dan heeft hij iets geraakt: dat is de collider van de splat.
+                var xz = new Vector2(onSplat.position.x, onSplat.position.z);
+                if (float.IsNaN(hitHeight) && Vector2.Distance(xz, startXZ) > 0.01f) hitHeight = onSplat.position.y;
+            }
+        }
+        finally
+        {
+            Physics.simulationMode = mode;
         }
         string verdict = !float.IsNaN(hitHeight) && hitHeight > b.min.y
             ? $"OK: geraakt op {hitHeight:F2} m, binnen de collider ({b.min.y:F2}–{b.max.y:F2} m)"

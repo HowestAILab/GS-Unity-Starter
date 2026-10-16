@@ -144,6 +144,10 @@ public static class StarterSetup
         PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "be.howest.ailab.gsstarter");
         PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
         PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel32;
+
+        // Physics loopt vanzelf mee (zonder dit hangen de ballen stil in de lucht). Een
+        // oudere versie van de collidertest liet deze projectinstelling op Script staan.
+        Physics.simulationMode = SimulationMode.FixedUpdate;
     }
 
     static void AddUrpFeature(string rendererPath)
