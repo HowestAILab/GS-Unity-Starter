@@ -43,7 +43,8 @@ Een reconstructie is groot (vloer, tafel, kamer). Knip je object eerst uit in no
 
 ## Op de Quest
 
-- **Snel bekijken:** open splat.ai-lab.dev in de Quest Browser en vul je code in.
+- **Snel bekijken:** open Splat Studio (`https://jens-eeckhout--splat.local.ai-lab.dev`, alleen op het
+  campusnetwerk) in de Quest Browser, vul je code in en kies *Bekijk in je kamer*.
 - **Als app (demo):** **GS Starter → Build voor de Quest (APK)** maakt `Builds/GSStarter.apk`.
   Installeren met `adb install -r Builds/GSStarter.apk` (ontwikkelaarsmodus aan op de Quest),
   of met Meta Quest Developer Hub.
